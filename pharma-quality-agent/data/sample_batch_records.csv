@@ -1,0 +1,13 @@
+batch_id,machine_id,start_time,end_time,operator_log,supervisor_review,cleaning_verification,deviation_reason,maintenance_history,quality_result
+BATCH-001,M-02,2026-01-01 08:00:00,2026-01-01 19:30:00,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 08:00:00,2026-01-02 19:30:00,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 08:00:00,2026-01-03 19:30:00,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-004,M-01,2026-01-04 08:00:00,2026-01-04 19:30:00,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-005,M-02,2026-01-05 08:00:00,2026-01-05 19:30:00,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 08:00:00,2026-01-06 19:30:00,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-007,M-04,2026-01-07 08:00:00,2026-01-07 19:30:00,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-008,M-01,2026-01-08 08:00:00,2026-01-08 19:30:00,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-009,M-02,2026-01-09 08:00:00,2026-01-09 19:30:00,,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-010,M-03,2026-01-10 08:00:00,2026-01-10 19:30:00,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-011,M-04,2026-01-11 08:00:00,2026-01-11 19:30:00,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 08:00:00,2026-01-12 19:30:00,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass

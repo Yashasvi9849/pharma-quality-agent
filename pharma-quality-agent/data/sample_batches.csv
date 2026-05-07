@@ -1,0 +1,289 @@
+batch_id,machine_id,timestamp,temperature,humidity,pressure,vibration,compression_force,ph,operator_log,supervisor_review,cleaning_verification,deviation_reason,maintenance_history,quality_result
+BATCH-001,M-02,2026-01-01 08:00:00,22.51,39.06,1.268,0.246,8.67,6.88,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 08:30:00,22.04,39.23,1.225,0.36,8.75,7.02,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 09:00:00,22.66,41.17,1.24,0.331,9.1,7.03,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 09:30:00,22.73,40.8,1.264,0.375,8.77,7.16,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 10:00:00,21.72,40.91,1.118,0.286,8.91,7.1,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 10:30:00,21.94,40.95,1.198,0.333,9.32,7.04,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 11:00:00,22.44,44.71,1.187,0.37,8.91,7.18,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 11:30:00,22.29,39.11,1.175,0.295,9.18,6.86,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 12:00:00,22.39,38.87,1.201,0.357,8.77,6.92,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 12:30:00,22.1,38.21,1.325,0.267,8.95,6.89,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 13:00:00,22.71,41.36,1.159,0.291,8.76,6.95,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 13:30:00,22.67,42.48,1.288,0.289,8.92,6.83,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 14:00:00,22.42,39.75,1.102,0.224,9.21,7.08,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 14:30:00,22.79,38.15,1.197,0.359,8.57,6.97,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 15:00:00,22.56,38.19,1.231,0.282,9.11,6.82,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 15:30:00,22.1,41.43,1.261,0.321,9.06,6.88,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 16:00:00,22.53,41.64,1.27,0.358,8.85,7.04,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 16:30:00,22.06,41.19,1.276,0.356,8.64,7.1,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 17:00:00,22.71,38.54,1.196,0.373,9.02,7.24,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 17:30:00,22.38,40.51,1.188,0.312,8.87,7.35,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 18:00:00,22.34,40.26,1.28,0.286,9.06,7.05,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 18:30:00,22.16,40.48,1.207,0.314,9.01,6.88,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 19:00:00,22.83,41.92,1.131,0.185,9.4,6.74,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-001,M-02,2026-01-01 19:30:00,22.35,40.49,1.141,0.204,8.94,7.03,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 08:00:00,22.12,39.66,1.193,0.363,8.78,7.06,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 08:30:00,22.25,39.91,1.322,0.427,8.98,7.12,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 09:00:00,22.19,38.56,1.143,0.308,8.56,7.02,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 09:30:00,22.35,40.98,1.157,0.264,8.63,7.04,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 10:00:00,22.77,39.0,1.265,0.302,9.53,7.01,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 10:30:00,22.45,37.3,1.192,0.339,8.68,7.0,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 11:00:00,22.34,37.19,1.22,0.334,8.73,6.91,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 11:30:00,22.04,40.38,1.209,0.233,9.46,7.04,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 12:00:00,21.81,43.47,1.244,0.327,9.73,6.99,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 12:30:00,22.23,40.35,1.319,0.338,8.71,7.25,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 13:00:00,22.38,39.74,1.226,0.521,8.91,7.19,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 13:30:00,23.02,40.63,1.265,0.47,9.09,7.05,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 14:00:00,22.45,42.87,1.076,0.252,9.43,6.91,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 14:30:00,22.74,40.48,1.217,0.297,8.75,6.87,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 15:00:00,22.23,39.1,1.161,0.203,8.94,7.14,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 15:30:00,21.99,42.43,1.135,0.273,9.19,7.03,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 16:00:00,22.06,40.94,1.159,0.345,9.11,7.06,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 16:30:00,22.15,43.38,1.197,0.416,8.91,6.79,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 17:00:00,23.14,40.4,1.284,0.262,8.97,7.11,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 17:30:00,22.11,37.31,1.127,0.268,8.66,7.05,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 18:00:00,22.69,36.99,1.222,0.148,8.94,6.87,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 18:30:00,22.08,43.63,1.186,0.307,8.93,6.94,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 19:00:00,22.73,43.79,1.197,0.235,9.06,7.03,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-002,M-03,2026-01-02 19:30:00,22.53,39.61,1.29,0.278,8.86,7.01,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 08:00:00,22.3,43.84,1.173,0.308,8.6,6.76,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 08:30:00,22.36,41.57,1.242,0.351,8.8,6.84,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 09:00:00,22.31,43.04,1.301,0.4,9.11,6.82,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 09:30:00,22.45,41.17,1.263,0.235,9.13,6.72,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 10:00:00,22.92,42.58,1.06,0.31,9.07,6.92,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 10:30:00,21.5,41.51,1.241,0.439,8.65,7.09,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 11:00:00,22.32,45.83,1.225,0.261,8.42,6.97,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 11:30:00,22.46,41.67,1.249,0.254,9.01,7.02,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 12:00:00,22.5,46.59,1.333,0.336,8.88,7.13,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 12:30:00,22.27,45.06,1.076,0.388,9.11,7.16,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 13:00:00,21.79,48.66,1.179,0.321,9.18,6.99,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 13:30:00,22.51,48.35,1.261,0.426,9.03,7.16,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 14:00:00,23.0,51.31,1.109,0.389,9.19,7.01,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 14:30:00,21.86,49.52,1.323,0.387,9.06,6.9,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 15:00:00,22.7,45.06,1.246,0.364,9.13,6.93,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 15:30:00,22.29,48.98,1.279,0.506,8.82,6.82,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 16:00:00,22.38,47.16,1.18,0.304,8.96,6.89,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 16:30:00,22.03,49.21,1.277,0.16,9.05,6.96,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 17:00:00,22.28,54.28,1.295,0.448,9.21,7.1,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 17:30:00,22.86,52.97,1.236,0.283,8.9,7.21,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 18:00:00,22.6,50.64,1.236,0.329,9.13,6.83,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 18:30:00,23.01,50.55,1.239,0.425,8.93,7.05,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 19:00:00,22.81,53.46,1.16,0.192,8.97,6.88,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-003,M-04,2026-01-03 19:30:00,22.55,51.32,1.21,0.22,9.21,7.06,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-004,M-01,2026-01-04 08:00:00,22.35,42.37,1.236,0.083,9.06,7.04,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 08:30:00,21.76,38.14,1.32,0.277,9.39,7.24,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 09:00:00,22.72,40.73,1.226,0.514,8.91,6.99,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 09:30:00,22.19,39.94,1.261,0.355,8.76,6.96,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 10:00:00,22.21,40.69,1.216,0.275,8.89,6.91,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 10:30:00,22.03,38.17,1.208,0.357,9.11,6.88,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 11:00:00,22.17,36.5,1.165,0.195,8.61,6.85,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 11:30:00,22.55,35.44,1.25,0.296,9.16,6.89,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 12:00:00,22.33,37.54,1.16,0.328,8.87,6.99,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 12:30:00,22.52,38.99,1.267,0.313,9.29,7.04,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 13:00:00,22.53,39.35,1.296,0.383,8.4,7.01,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 13:30:00,22.86,44.26,1.246,1.158,8.8,6.91,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 14:00:00,22.28,42.43,1.2,0.373,8.58,7.11,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 14:30:00,21.88,37.88,1.252,1.104,8.79,7.09,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 15:00:00,22.77,40.76,1.198,0.392,9.06,6.98,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 15:30:00,22.28,39.1,1.285,0.45,8.96,6.92,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 16:00:00,22.79,39.37,1.092,1.009,8.94,7.07,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 16:30:00,22.53,40.41,1.197,0.249,8.96,7.02,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 17:00:00,22.35,41.36,1.081,0.427,9.05,6.83,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 17:30:00,22.52,39.25,1.115,0.305,8.75,6.99,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 18:00:00,23.08,42.34,1.315,1.217,9.18,7.03,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 18:30:00,23.13,37.49,1.283,0.285,9.17,6.89,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 19:00:00,22.42,40.01,1.17,0.436,9.1,7.02,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-004,M-01,2026-01-04 19:30:00,22.46,45.71,1.115,0.331,9.14,6.83,Complete,,Verified,Not applicable,Recent vibration calibration,Fail
+BATCH-005,M-02,2026-01-05 08:00:00,22.65,36.29,1.192,0.25,9.2,7.13,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 08:30:00,23.1,41.18,1.084,0.334,9.16,6.88,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 09:00:00,21.99,37.72,1.198,0.417,9.31,6.89,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 09:30:00,22.11,40.52,1.2,0.294,8.87,7.07,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 10:00:00,22.48,36.87,1.207,0.185,8.89,6.97,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 10:30:00,22.96,40.98,1.142,0.319,8.88,7.08,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 11:00:00,21.97,38.23,1.261,0.248,9.2,7.0,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 11:30:00,22.49,37.18,1.257,0.293,9.37,7.08,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 12:00:00,23.04,41.57,1.115,0.313,8.89,6.88,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 12:30:00,21.82,40.53,1.269,0.184,8.89,7.0,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 13:00:00,21.95,38.65,1.364,0.191,9.08,6.97,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 13:30:00,22.25,43.19,1.232,0.359,8.94,6.85,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 14:00:00,22.22,39.03,1.196,0.278,9.24,6.81,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 14:30:00,22.68,40.07,1.21,0.115,8.44,7.08,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 15:00:00,22.48,40.59,1.263,0.383,8.79,6.96,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 15:30:00,21.78,38.64,1.099,0.342,8.8,6.88,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 16:00:00,22.58,41.04,1.232,0.263,8.42,6.99,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 16:30:00,22.2,38.83,1.193,0.215,8.76,7.14,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 17:00:00,22.85,39.09,1.349,0.387,8.77,6.73,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 17:30:00,22.18,43.0,1.208,0.348,8.95,6.82,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 18:00:00,22.18,37.71,1.337,0.511,9.28,6.89,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 18:30:00,22.59,34.69,1.143,0.354,8.94,7.18,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 19:00:00,22.67,43.54,1.261,0.351,8.74,7.03,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-005,M-02,2026-01-05 19:30:00,22.56,45.61,1.242,0.307,8.99,7.09,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 08:00:00,22.0,37.77,1.143,0.252,8.53,6.92,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 08:30:00,22.01,44.51,1.248,0.233,8.93,7.12,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 09:00:00,22.56,43.93,1.224,0.348,8.85,6.96,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 09:30:00,22.42,42.5,1.129,0.35,8.74,6.94,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 10:00:00,22.59,37.97,1.216,0.423,8.99,7.11,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 10:30:00,22.33,41.88,1.214,0.408,7.94,7.0,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 11:00:00,22.5,41.41,1.346,0.309,8.63,7.03,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 11:30:00,22.46,40.97,1.283,0.22,8.84,7.0,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 12:00:00,22.67,42.75,1.221,0.294,8.09,7.04,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 12:30:00,22.68,41.4,1.237,0.337,8.2,7.05,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 13:00:00,21.83,41.63,1.223,0.304,8.03,6.77,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 13:30:00,21.61,41.4,1.206,0.274,7.92,7.08,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 14:00:00,22.75,40.75,1.144,0.34,7.98,6.88,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 14:30:00,22.82,36.08,1.209,0.28,8.34,6.83,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 15:00:00,22.04,40.18,1.168,0.27,8.36,6.99,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 15:30:00,21.75,38.78,1.132,0.345,7.74,7.01,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 16:00:00,22.43,37.18,1.256,0.288,8.22,6.92,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 16:30:00,22.73,43.7,1.247,0.34,7.68,7.1,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 17:00:00,23.03,43.8,1.095,0.342,8.03,6.84,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 17:30:00,22.58,42.99,1.211,0.229,7.49,6.95,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 18:00:00,22.27,40.56,1.29,0.282,7.47,6.93,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 18:30:00,22.09,42.97,1.294,0.435,7.45,6.99,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 19:00:00,22.4,40.03,1.292,0.227,8.07,7.03,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-006,M-03,2026-01-06 19:30:00,22.3,40.45,1.223,0.151,7.41,6.88,Complete,Reviewed,,Not applicable,Routine maintenance current,Pass
+BATCH-007,M-04,2026-01-07 08:00:00,22.65,38.51,1.198,0.343,9.23,7.22,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 08:30:00,22.42,38.71,1.159,0.292,9.01,7.16,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 09:00:00,21.74,42.27,1.228,0.347,8.93,6.99,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 09:30:00,21.71,38.45,1.18,0.086,8.97,7.04,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 10:00:00,22.4,43.29,1.208,0.351,9.06,7.09,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 10:30:00,22.32,43.27,1.352,0.028,9.15,7.01,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 11:00:00,22.36,43.33,1.208,0.182,8.75,7.02,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 11:30:00,22.39,47.76,1.249,0.356,8.74,7.1,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 12:00:00,22.48,43.5,1.204,0.358,9.28,6.99,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 12:30:00,22.73,50.01,1.225,0.227,8.9,6.91,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 13:00:00,22.01,45.59,1.22,0.263,8.65,6.95,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 13:30:00,21.99,43.89,1.251,0.43,9.11,7.08,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 14:00:00,22.02,47.46,1.302,0.281,9.12,7.0,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 14:30:00,22.5,45.55,1.335,0.499,8.62,7.04,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 15:00:00,22.84,46.87,1.242,0.32,9.06,7.08,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 15:30:00,22.25,50.0,1.261,0.353,9.18,6.96,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 16:00:00,21.52,50.96,1.139,0.449,9.09,7.09,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 16:30:00,21.8,48.98,1.214,0.33,9.16,7.05,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 17:00:00,22.11,53.13,1.286,0.24,8.65,6.85,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 17:30:00,22.2,54.11,1.281,0.311,9.08,7.17,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 18:00:00,22.26,55.33,1.235,0.317,8.92,6.94,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 18:30:00,22.41,53.95,1.282,0.211,8.88,6.8,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 19:00:00,22.29,56.39,1.254,0.3,9.22,6.87,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-007,M-04,2026-01-07 19:30:00,22.77,49.86,1.304,0.261,9.37,6.88,Complete,,Verified,Not applicable,Routine maintenance current,Fail
+BATCH-008,M-01,2026-01-08 08:00:00,22.42,37.9,1.175,0.372,8.71,7.01,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 08:30:00,22.3,42.14,1.216,0.298,8.94,7.0,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 09:00:00,22.28,41.54,1.145,0.272,9.03,6.99,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 09:30:00,22.62,40.22,1.252,0.321,9.02,7.0,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 10:00:00,22.52,38.32,1.321,0.384,9.28,7.21,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 10:30:00,22.51,38.11,1.215,0.334,8.91,6.72,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 11:00:00,22.54,38.82,1.206,0.268,9.09,6.76,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 11:30:00,22.62,41.19,1.142,0.418,8.75,6.93,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 12:00:00,21.66,37.9,1.204,0.446,9.11,7.0,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 12:30:00,22.27,40.96,1.109,0.36,9.0,7.08,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 13:00:00,21.64,37.27,1.576,0.398,8.81,7.06,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 13:30:00,22.41,39.55,1.656,0.419,8.94,6.95,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 14:00:00,22.4,40.24,1.732,0.41,8.95,7.12,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 14:30:00,22.77,45.38,1.837,0.369,8.93,7.12,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 15:00:00,22.82,36.97,1.599,0.368,9.44,7.02,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 15:30:00,22.47,43.24,1.32,0.362,8.98,7.12,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 16:00:00,25.22,40.33,1.237,0.232,8.94,7.03,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 16:30:00,25.57,40.9,1.209,0.376,8.48,6.93,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 17:00:00,25.22,40.26,1.25,0.212,8.78,7.08,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 17:30:00,25.4,40.98,1.224,0.256,8.93,7.01,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 18:00:00,22.75,39.66,1.228,0.424,8.83,7.0,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 18:30:00,22.2,43.2,1.191,0.387,9.35,7.18,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 19:00:00,22.68,39.0,1.122,0.439,8.96,6.71,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-008,M-01,2026-01-08 19:30:00,22.64,42.49,1.112,0.298,9.32,6.83,Complete,Reviewed,Verified,,Routine maintenance current,Pass
+BATCH-009,M-02,2026-01-09 08:00:00,21.98,39.98,1.38,0.225,9.19,7.14,,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 08:30:00,22.27,36.97,1.241,0.327,8.99,6.74,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 09:00:00,22.31,39.3,1.282,0.346,9.43,6.76,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 09:30:00,21.87,40.8,1.186,0.257,8.88,7.1,,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 10:00:00,22.06,41.35,1.207,0.322,9.25,7.01,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 10:30:00,22.1,39.69,1.17,1.027,9.02,7.03,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 11:00:00,23.26,43.37,1.034,0.369,9.2,6.84,,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 11:30:00,23.03,42.22,1.124,0.444,8.89,7.0,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 12:00:00,22.26,39.44,1.093,0.422,8.99,7.24,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 12:30:00,22.27,41.65,1.063,0.24,8.97,7.1,,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 13:00:00,22.0,44.25,1.136,0.455,8.79,7.02,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 13:30:00,21.73,44.31,1.313,0.278,9.17,6.95,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 14:00:00,22.36,37.3,1.217,1.079,9.16,6.95,,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 14:30:00,22.05,37.96,1.31,0.325,9.15,6.74,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 15:00:00,22.37,43.27,1.249,0.287,9.38,7.03,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 15:30:00,21.84,37.67,1.275,0.761,9.36,7.1,,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 16:00:00,22.13,37.09,1.157,0.306,8.91,6.81,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 16:30:00,22.45,38.93,1.257,0.195,9.09,6.92,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 17:00:00,22.53,40.92,1.271,1.075,8.84,6.86,,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 17:30:00,22.55,39.77,1.18,0.441,9.01,6.88,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 18:00:00,21.94,38.57,1.259,0.256,8.85,7.01,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 18:30:00,22.7,38.52,1.26,0.344,9.41,6.75,,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 19:00:00,22.12,38.43,1.182,0.262,9.09,7.07,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-009,M-02,2026-01-09 19:30:00,22.62,38.07,1.141,0.27,8.95,7.09,Complete,Reviewed,Verified,Not applicable,Recent vibration calibration,Pass
+BATCH-010,M-03,2026-01-10 08:00:00,22.68,44.09,1.202,0.307,9.16,6.89,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 08:30:00,22.16,41.03,1.194,0.18,8.92,6.9,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 09:00:00,22.54,41.45,1.284,0.328,8.97,6.8,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 09:30:00,22.6,45.96,1.099,0.42,8.66,7.03,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 10:00:00,23.04,39.53,1.28,0.233,9.24,6.99,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 10:30:00,22.33,38.24,1.193,0.347,8.22,6.95,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 11:00:00,22.53,40.94,1.246,0.247,8.85,6.65,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 11:30:00,21.88,40.97,1.141,0.266,8.79,6.85,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 12:00:00,22.82,38.84,1.313,0.438,8.16,7.13,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 12:30:00,22.13,37.73,1.307,0.277,8.85,6.92,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 13:00:00,22.2,45.08,1.287,0.357,8.47,7.04,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 13:30:00,22.39,40.72,1.114,0.17,8.38,6.83,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 14:00:00,21.85,38.39,1.278,0.469,8.07,7.17,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 14:30:00,22.48,42.02,1.248,0.368,7.93,6.98,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 15:00:00,22.74,39.76,1.108,0.305,7.85,7.03,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 15:30:00,22.5,39.44,1.218,0.366,7.92,7.28,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 16:00:00,21.84,41.24,1.246,0.207,8.1,7.18,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 16:30:00,22.36,37.16,1.259,0.415,7.71,6.96,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 17:00:00,22.66,40.78,1.232,0.294,7.36,6.93,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 17:30:00,21.74,44.21,1.24,0.304,7.72,6.96,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 18:00:00,22.02,41.03,1.323,0.281,7.67,7.06,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 18:30:00,22.71,39.17,1.306,0.274,7.52,6.99,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 19:00:00,22.49,38.88,1.019,0.376,7.46,6.95,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-010,M-03,2026-01-10 19:30:00,22.54,39.1,1.198,0.34,7.13,7.18,Complete,Reviewed,,Not applicable,Routine maintenance current,Fail
+BATCH-011,M-04,2026-01-11 08:00:00,22.36,43.75,1.243,0.306,8.82,6.85,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 08:30:00,23.2,40.99,1.205,0.149,8.85,7.0,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 09:00:00,22.43,41.24,1.255,0.369,8.91,7.12,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 09:30:00,23.02,40.25,1.072,0.364,8.66,6.73,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 10:00:00,22.53,40.73,1.217,0.345,8.84,7.04,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 10:30:00,22.74,41.71,1.36,0.399,8.82,7.14,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 11:00:00,22.15,38.22,1.229,0.227,9.19,6.98,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 11:30:00,22.1,41.93,1.225,0.481,9.2,7.07,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 12:00:00,22.56,36.98,1.258,0.243,8.96,6.92,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 12:30:00,22.75,40.72,1.283,0.38,8.9,6.99,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 13:00:00,22.41,40.39,1.08,0.185,9.03,6.81,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 13:30:00,21.95,38.64,1.102,0.246,8.8,6.72,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 14:00:00,21.92,39.95,1.235,0.441,8.71,7.11,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 14:30:00,21.9,38.63,1.17,0.299,8.76,6.88,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 15:00:00,21.78,37.64,1.312,0.387,8.84,6.95,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 15:30:00,22.44,39.22,1.198,0.339,8.71,6.83,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 16:00:00,22.79,37.57,1.085,0.312,9.04,6.83,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 16:30:00,22.4,40.71,1.131,0.429,9.18,6.98,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 17:00:00,21.61,37.47,1.028,0.301,8.6,6.91,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 17:30:00,22.33,41.57,1.204,0.178,9.01,7.05,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 18:00:00,22.34,37.4,1.207,0.256,8.95,7.05,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 18:30:00,23.13,38.75,1.19,0.364,9.09,7.04,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 19:00:00,21.89,38.63,1.296,0.352,9.0,7.03,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-011,M-04,2026-01-11 19:30:00,22.26,42.92,1.304,0.195,8.64,7.19,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 08:00:00,22.03,42.59,1.302,0.192,9.1,6.84,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 08:30:00,22.38,40.42,1.207,0.331,8.88,7.13,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 09:00:00,22.8,42.49,1.171,0.356,9.59,6.83,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 09:30:00,22.84,34.84,1.185,0.302,8.57,6.92,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 10:00:00,21.9,43.5,1.309,0.191,9.05,7.23,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 10:30:00,22.29,40.83,1.258,0.399,8.72,7.14,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 11:00:00,22.88,42.37,1.193,0.349,8.88,7.01,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 11:30:00,22.58,37.32,1.203,0.262,9.04,6.89,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 12:00:00,22.47,38.17,1.11,0.298,8.42,6.94,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 12:30:00,22.32,40.32,1.247,0.2,9.06,7.01,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 13:00:00,22.27,39.96,1.097,0.238,9.48,7.0,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 13:30:00,22.5,40.62,1.273,0.277,8.89,6.99,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 14:00:00,22.31,42.39,1.229,0.418,9.06,7.0,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 14:30:00,22.39,36.12,1.387,0.269,9.26,6.97,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 15:00:00,22.43,42.14,1.143,0.371,8.96,6.83,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 15:30:00,22.16,40.02,1.213,0.277,8.85,6.94,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 16:00:00,22.59,39.55,1.346,0.34,8.43,7.11,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 16:30:00,23.42,36.76,1.303,0.309,9.16,6.84,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 17:00:00,21.78,41.11,1.171,0.39,8.97,6.98,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 17:30:00,22.51,34.69,1.236,0.277,8.75,6.9,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 18:00:00,22.13,41.43,1.22,0.194,9.03,7.01,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 18:30:00,22.6,36.72,1.24,0.209,8.85,6.95,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 19:00:00,22.42,40.12,1.171,0.277,8.87,7.18,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
+BATCH-012,M-01,2026-01-12 19:30:00,22.67,39.74,1.214,0.22,9.15,7.06,Complete,Reviewed,Verified,Not applicable,Routine maintenance current,Pass
