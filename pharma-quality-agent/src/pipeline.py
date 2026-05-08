@@ -61,6 +61,7 @@ def analyze_batch(data: pd.DataFrame, batch_id: str) -> dict[str, Any]:
         "process_deviations": _records(deviations),
         "missing_documentation": _records(missing_docs),
         "anomaly_rows": _records(batch[batch["is_anomaly"]]),
+        "batch_rows": _records(batch),
         "reports": {
             "markdown": markdown_report,
             "csv": csv_report,

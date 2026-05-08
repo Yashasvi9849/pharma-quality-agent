@@ -1,18 +1,17 @@
 from __future__ import annotations
 
-from pathlib import Path
+from io import BytesIO
+import os
 
 import pandas as pd
 import plotly.express as px
+import requests
 import streamlit as st
 
-from src.data_generator import SENSOR_COLUMNS, ensure_sample_data, generate_synthetic_batches
-from src.report_generator import generate_csv_report, generate_markdown_report
-from src.pipeline import analyze_batch as run_batch_pipeline
+from src.data_generator import SENSOR_COLUMNS
 
 
-APP_DIR = Path(__file__).resolve().parent
-DATA_DIR = APP_DIR / "data"
+API_BASE_URL = os.getenv("PHARMA_API_URL", "http://127.0.0.1:8000").rstrip("/")
 
 
 st.set_page_config(
@@ -118,27 +117,51 @@ st.markdown(
 )
 
 
-def load_data(uploaded_file) -> pd.DataFrame:
-    if uploaded_file is not None:
-        data = pd.read_csv(uploaded_file)
+def request_json(method: str, path: str, **kwargs) -> dict[str, object]:
+    url = f"{API_BASE_URL}{path}"
+    response = requests.request(method, url, timeout=30, **kwargs)
+    response.raise_for_status()
+    return response.json()
+
+
+def batch_options_from_upload(uploaded_file) -> list[str]:
+    if uploaded_file is None:
+        payload = request_json("GET", "/batches")
+        return payload["batch_ids"]
+
+    data = pd.read_csv(BytesIO(uploaded_file.getvalue()))
+    if "batch_id" not in data.columns:
+        raise ValueError("Uploaded CSV must include a batch_id column.")
+    return sorted(data["batch_id"].dropna().astype(str).unique().tolist())
+
+
+def analyze_batch(uploaded_file, batch_id: str) -> dict[str, object]:
+    if uploaded_file is None:
+        payload = request_json("GET", f"/analyze/{batch_id}")
     else:
-        ensure_sample_data(DATA_DIR)
-        data = generate_synthetic_batches()
+        files = {
+            "file": (
+                uploaded_file.name,
+                uploaded_file.getvalue(),
+                uploaded_file.type or "text/csv",
+            )
+        }
+        payload = request_json("POST", "/analyze", data={"batch_id": batch_id}, files=files)
 
-    data["timestamp"] = pd.to_datetime(data["timestamp"], errors="coerce")
-    return data.sort_values(["batch_id", "timestamp"])
-
-
-def analyze_batch(data: pd.DataFrame, batch_id: str) -> dict[str, object]:
-    result = run_batch_pipeline(data, batch_id)
-    frames = result["dataframes"]
+    batch = pd.DataFrame(payload["batch_rows"])
+    deviations = pd.DataFrame(payload["process_deviations"])
+    missing_docs = pd.DataFrame(payload["missing_documentation"])
+    if not batch.empty and "timestamp" in batch.columns:
+        batch["timestamp"] = pd.to_datetime(batch["timestamp"], errors="coerce")
     return {
-        "batch": frames["batch"],
-        "deviations": frames["deviations"],
-        "missing_docs": frames["missing_docs"],
-        "risk": result["risk"],
-        "summary": result["root_cause_summary"],
-        "checklist": result["qa_checklist"],
+        "batch": batch,
+        "deviations": deviations,
+        "missing_docs": missing_docs,
+        "risk": payload["risk"],
+        "summary": payload["root_cause_summary"],
+        "checklist": payload["qa_checklist"],
+        "reports": payload["reports"],
+        "decision_support_notice": payload["decision_support_notice"],
     }
 
 
@@ -199,18 +222,33 @@ st.markdown(
 
 with st.sidebar:
     st.header("Controls")
+    st.caption(f"Backend: {API_BASE_URL}")
     uploaded_csv = st.file_uploader("Upload CSV", type=["csv"])
-    data = load_data(uploaded_csv)
 
-    batch_options = sorted(data["batch_id"].dropna().unique().tolist())
+    try:
+        batch_options = batch_options_from_upload(uploaded_csv)
+        backend_ready = True
+    except (requests.RequestException, ValueError) as exc:
+        batch_options = []
+        backend_ready = False
+        st.error(f"Backend connection failed: {exc}")
+
+    if not batch_options:
+        st.stop()
+
     default_index = batch_options.index("BATCH-010") if "BATCH-010" in batch_options else 0
     selected_batch = st.selectbox("Select Batch ID", batch_options, index=default_index)
     analyze = st.button("Analyze Batch", type="primary", use_container_width=True)
     show_raw = st.toggle("Show Raw Data", value=False)
     show_technical = st.toggle("Show Technical Details", value=False)
 
-if analyze or selected_batch:
-    result = analyze_batch(data, selected_batch)
+if backend_ready and (analyze or selected_batch):
+    try:
+        result = analyze_batch(uploaded_csv, selected_batch)
+    except requests.RequestException as exc:
+        st.error(f"Backend analysis request failed: {exc}")
+        st.stop()
+
     batch = result["batch"]
     deviations = result["deviations"]
     missing_docs = result["missing_docs"]
@@ -263,15 +301,8 @@ if analyze or selected_batch:
         st.checkbox(item, value=False)
     st.info("This tool cannot approve or release a batch. Final disposition must be made by authorized QA personnel.")
 
-    markdown_report = generate_markdown_report(
-        selected_batch,
-        risk,
-        deviations,
-        missing_docs,
-        result["summary"],
-        result["checklist"],
-    )
-    csv_report = generate_csv_report(selected_batch, risk, result["summary"], result["checklist"])
+    markdown_report = result["reports"]["markdown"]
+    csv_report = result["reports"]["csv"]
 
     dl_a, dl_b = st.columns(2)
     with dl_a:
@@ -297,5 +328,7 @@ if analyze or selected_batch:
 
     if show_technical:
         st.subheader("Technical Details")
+        st.write("Backend URL:", API_BASE_URL)
+        st.write("Decision-support notice:", result["decision_support_notice"])
         st.write("Sensor columns:", SENSOR_COLUMNS)
         st.json(risk)
