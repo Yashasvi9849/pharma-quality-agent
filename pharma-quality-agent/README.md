@@ -1,16 +1,54 @@
-# Pharma Manufacturing Quality Assistant
+# Agentic AI Pharma Manufacturing Deviation Intelligence System
 
-Streamlit MVP for AI-assisted pharma manufacturing batch risk monitoring. The app analyzes synthetic or uploaded batch sensor data, flags unusual readings, checks process-limit deviations, identifies incomplete documentation, scores batch risk, and generates a QA review recommendation.
+Backend-first MVP with a Streamlit review dashboard for pharma manufacturing deviation intelligence. The system analyzes batch manufacturing data, detects sensor anomalies and process-limit breaches, checks missing documentation, calculates batch risk, and generates a QA-ready investigation summary for human review.
 
-This is decision-support only. The application never approves or releases a batch automatically.
+This is decision-support only. The system must never approve, reject, release, or disposition a batch automatically.
 
 ## Problem Statement
 
-Manufacturing quality teams need a fast way to spot process signals that may require review before batch disposition. Sensor drift, equipment instability, missing records, and failed quality results can be scattered across different records. This MVP brings those signals into one simple dashboard for human QA review.
+Pharmaceutical manufacturing teams need to produce every batch within strict quality and compliance limits. During production, sensor data such as temperature, humidity, pressure, vibration, and compression force is continuously generated. However, quality teams often review deviations manually by checking dashboards, batch logs, historical patterns, and documentation records.
+
+This manual process can be slow, repetitive, and error-prone, especially when small signals across multiple sensors together indicate a larger manufacturing risk.
+
+## Project Problem
+
+Build a backend system that analyzes pharma manufacturing batch data, detects process deviations, identifies possible quality risks, checks missing documentation, and generates a QA-ready investigation summary for human review.
+
+## Core Problem In Simple Words
+
+When a medicine batch is being manufactured, something may go slightly wrong, such as humidity drifting, vibration increasing, or compression force becoming unstable.
+
+The system should answer:
+
+```text
+Is this batch normal or risky?
+What went wrong?
+Which sensor or process caused the issue?
+Is any documentation missing?
+What should QA review before releasing the batch?
+```
+
+## Why This Matters
+
+In pharma manufacturing, even small process deviations can affect product quality, safety, and compliance. The goal is not to let AI approve or reject a batch. The goal is to help QA teams investigate faster and more accurately.
+
+## Backend MVP Goal
+
+The deterministic backend supports:
+
+```text
+1. Upload or read batch manufacturing data
+2. Analyze sensor values
+3. Detect anomalies and threshold breaches
+4. Calculate batch risk score
+5. Identify missing documentation fields
+6. Generate final deviation summary
+7. Return results through an API
+```
 
 ## Why AI Is Useful
 
-The MVP combines deterministic quality rules with an IsolationForest anomaly model. Rule checks catch known process-limit deviations, while anomaly detection helps surface unusual multivariate sensor patterns that may not violate a single limit yet. The output is explainable and deliberately framed as review support, not automated approval.
+The MVP combines deterministic quality rules with a scikit-learn IsolationForest anomaly model. Rule checks catch known process-limit deviations, while anomaly detection helps surface unusual multivariate sensor patterns that may not violate a single limit yet. The output is explainable and deliberately framed as review support, not automated approval.
 
 ## How To Run Locally
 
@@ -19,15 +57,67 @@ cd pharma-quality-agent
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
+
+Run the backend API:
+
+```bash
+uvicorn api:app --reload
+```
+
+Open API docs:
+
+```text
+http://localhost:8000/docs
+```
+
+Run the Streamlit dashboard:
+
+```bash
 streamlit run app.py
 ```
 
 If no CSV is uploaded, the app generates synthetic sample data automatically.
 
+## API Endpoints
+
+```text
+GET /health
+GET /batches
+GET /analyze/{batch_id}
+POST /analyze
+```
+
+Example sample-data request:
+
+```bash
+curl http://localhost:8000/analyze/BATCH-010
+```
+
+Example CSV upload request:
+
+```bash
+curl -X POST http://localhost:8000/analyze \
+  -F "batch_id=BATCH-010" \
+  -F "file=@data/sample_batches.csv"
+```
+
+API responses include:
+
+- Risk score and risk level
+- Sensor anomaly rows
+- Process deviations
+- Missing documentation fields
+- Root-cause summary
+- QA review checklist
+- Markdown and CSV report content
+- Decision-support notice
+
 ## Folder Structure
 
 ```text
 pharma-quality-agent/
+  api.py
   app.py
   requirements.txt
   README.md
@@ -39,6 +129,7 @@ pharma-quality-agent/
     anomaly_detector.py
     deviation_checker.py
     documentation_checker.py
+    pipeline.py
     risk_scorer.py
     root_cause_engine.py
     report_generator.py
@@ -86,11 +177,11 @@ Risk bands:
 - No external APIs or live manufacturing system connections.
 - IsolationForest output depends on available data distribution.
 - Root-cause summaries are rule-based plain-English summaries, not validated investigations.
-- The app does not replace GMP controls, quality systems, deviation investigations, or authorized QA disposition.
+- The API and dashboard do not replace GMP controls, quality systems, deviation investigations, or authorized QA disposition.
 
 ## Future Agentic AI Upgrade Plan
 
-A later version can convert the modules into coordinated agents using LangGraph:
+The first backend version is intentionally deterministic. A later version can convert the modules into coordinated agents using LangGraph:
 
 - Sensor Monitoring Agent: monitors sensor streams and flags unusual patterns.
 - Batch Deviation Agent: checks process limits and prioritizes deviations.

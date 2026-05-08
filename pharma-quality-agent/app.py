@@ -6,13 +6,9 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-from src.anomaly_detector import detect_anomalies
 from src.data_generator import SENSOR_COLUMNS, ensure_sample_data, generate_synthetic_batches
-from src.deviation_checker import check_process_deviations
-from src.documentation_checker import check_missing_documentation
 from src.report_generator import generate_csv_report, generate_markdown_report
-from src.risk_scorer import calculate_risk_score
-from src.root_cause_engine import generate_qa_checklist, generate_root_cause_summary
+from src.pipeline import analyze_batch as run_batch_pipeline
 
 
 APP_DIR = Path(__file__).resolve().parent
@@ -134,20 +130,15 @@ def load_data(uploaded_file) -> pd.DataFrame:
 
 
 def analyze_batch(data: pd.DataFrame, batch_id: str) -> dict[str, object]:
-    batch = data[data["batch_id"] == batch_id].copy()
-    batch = detect_anomalies(batch)
-    deviations = check_process_deviations(batch)
-    missing_docs = check_missing_documentation(batch)
-    risk_result = calculate_risk_score(batch, deviations, missing_docs)
-    summary = generate_root_cause_summary(batch, deviations, missing_docs, risk_result)
-    checklist = generate_qa_checklist(risk_result)
+    result = run_batch_pipeline(data, batch_id)
+    frames = result["dataframes"]
     return {
-        "batch": batch,
-        "deviations": deviations,
-        "missing_docs": missing_docs,
-        "risk": risk_result,
-        "summary": summary,
-        "checklist": checklist,
+        "batch": frames["batch"],
+        "deviations": frames["deviations"],
+        "missing_docs": frames["missing_docs"],
+        "risk": result["risk"],
+        "summary": result["root_cause_summary"],
+        "checklist": result["qa_checklist"],
     }
 
 
