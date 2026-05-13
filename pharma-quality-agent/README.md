@@ -1,6 +1,6 @@
 # Agentic AI Pharma Manufacturing Deviation Intelligence System
 
-Backend-first MVP with a Streamlit review dashboard for pharma manufacturing deviation intelligence. The system analyzes batch manufacturing data, detects sensor anomalies and process-limit breaches, checks missing documentation, calculates batch risk, and generates a QA-ready investigation summary for human review.
+Backend-first MVP with a React review dashboard for pharma manufacturing deviation intelligence. The system analyzes batch manufacturing data, detects sensor anomalies and process-limit breaches, checks missing documentation, calculates batch risk, and generates a QA-ready investigation summary for human review.
 
 This is decision-support only. The system must never approve, reject, release, or disposition a batch automatically.
 
@@ -71,7 +71,21 @@ Open API docs:
 http://localhost:8000/docs
 ```
 
-Run the Streamlit dashboard:
+Run the React dashboard:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open:
+
+```text
+http://127.0.0.1:5173
+```
+
+The older Streamlit dashboard is still available for comparison:
 
 ```bash
 streamlit run app.py
@@ -121,11 +135,20 @@ pharma-quality-agent/
   app.py
   requirements.txt
   README.md
+  TESTING.md
   data/
     sample_batches.csv
     sample_batch_records.csv
+    test_upload_batches.csv
+  frontend/
+    index.html
+    package.json
+    src/
+      main.jsx
+      styles.css
   src/
     data_generator.py
+    analyzer_agent.py
     anomaly_detector.py
     deviation_checker.py
     documentation_checker.py

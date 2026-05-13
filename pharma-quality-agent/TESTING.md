@@ -11,14 +11,15 @@ The application is decision-support only. It must never approve or release a bat
 ## Local URLs
 
 ```text
-Frontend dashboard: http://localhost:8507
+React dashboard:    http://127.0.0.1:5173
+Streamlit dashboard: http://localhost:8507
 Backend API docs:   http://127.0.0.1:8000/docs
 Backend health:     http://127.0.0.1:8000/health
 ```
 
 ## Smoke Test
 
-1. Open `http://localhost:8507`.
+1. Open `http://127.0.0.1:5173`.
 2. Confirm the dashboard title appears:
    `Pharma Manufacturing Quality Assistant`
 3. Confirm the sidebar shows:
@@ -33,9 +34,12 @@ Backend health:     http://127.0.0.1:8000/health
 Expected result:
 
 - Risk level is `High Risk, QA Review Required`.
-- A high-risk status banner is visible.
+- A high-risk recommendation panel is visible.
+- The risk score bar points to the high-risk band.
+- Primary risk drivers are listed near the top of the dashboard.
 - KPI cards show risk score, risk level, sensor anomalies, and missing documentation count.
 - Charts are visible for temperature, humidity, vibration, and compression force.
+- Charts include upper/lower process-limit lines and markers for anomalies or out-of-limit readings.
 - Detected issues tables are visible.
 - Root-cause summary is visible.
 - QA checklist is visible.

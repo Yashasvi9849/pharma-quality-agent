@@ -5,6 +5,7 @@ from typing import Annotated
 
 import pandas as pd
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 
 from src.pipeline import analyze_batch, api_result, load_batch_data, prepare_batch_data
 
@@ -16,6 +17,19 @@ app = FastAPI(
         "Decision-support only; human QA approval is always required."
     ),
     version="0.1.0",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:8501",
+        "http://localhost:8507",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
