@@ -8,7 +8,9 @@ import plotly.express as px
 import requests
 import streamlit as st
 
+from src.analyzer_agent import PharmaAnalyzerAgent
 from src.data_generator import SENSOR_COLUMNS
+from src.pipeline import load_batch_data, prepare_batch_data
 
 
 API_BASE_URL = os.getenv("PHARMA_API_URL", "http://127.0.0.1:8000").rstrip("/")
@@ -111,11 +113,28 @@ st.markdown(
         background: #ffffff;
         border-right: 1px solid var(--qa-border);
     }
+    .chat-message-user {
+        background: #eef4fb;
+        border-radius: 8px;
+        padding: .6rem .9rem;
+        margin: .4rem 0;
+    }
+    .chat-message-assistant {
+        background: #ffffff;
+        border: 1px solid var(--qa-border);
+        border-radius: 8px;
+        padding: .6rem .9rem;
+        margin: .4rem 0;
+    }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
+
+# ------------------------------------------------------------------
+# Helpers
+# ------------------------------------------------------------------
 
 def request_json(method: str, path: str, **kwargs) -> dict[str, object]:
     url = f"{API_BASE_URL}{path}"
@@ -209,6 +228,34 @@ def sensor_chart(batch: pd.DataFrame, sensor: str, title: str):
     return fig
 
 
+def _get_df_for_agent(uploaded_file) -> pd.DataFrame:
+    """Load the full batch DataFrame for use by the agent."""
+    if uploaded_file is not None:
+        data = pd.read_csv(BytesIO(uploaded_file.getvalue()))
+        return prepare_batch_data(data)
+    return load_batch_data()
+
+
+# ------------------------------------------------------------------
+# Session state initialization
+# ------------------------------------------------------------------
+
+if "agent" not in st.session_state:
+    st.session_state.agent = PharmaAnalyzerAgent()
+if "agent_synthesis" not in st.session_state:
+    st.session_state.agent_synthesis = ""
+if "agent_batch_id" not in st.session_state:
+    st.session_state.agent_batch_id = ""
+if "agent_steps" not in st.session_state:
+    st.session_state.agent_steps: list[str] = []
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history: list[dict] = []
+
+
+# ------------------------------------------------------------------
+# Page header
+# ------------------------------------------------------------------
+
 st.markdown(
     """
     <div class="app-header">
@@ -219,6 +266,10 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+# ------------------------------------------------------------------
+# Sidebar
+# ------------------------------------------------------------------
 
 with st.sidebar:
     st.header("Controls")
@@ -242,93 +293,234 @@ with st.sidebar:
     show_raw = st.toggle("Show Raw Data", value=False)
     show_technical = st.toggle("Show Technical Details", value=False)
 
-if backend_ready and (analyze or selected_batch):
-    try:
-        result = analyze_batch(uploaded_csv, selected_batch)
-    except requests.RequestException as exc:
-        st.error(f"Backend analysis request failed: {exc}")
-        st.stop()
+# ------------------------------------------------------------------
+# Tabs
+# ------------------------------------------------------------------
 
-    batch = result["batch"]
-    deviations = result["deviations"]
-    missing_docs = result["missing_docs"]
-    risk = result["risk"]
+tab_dashboard, tab_agent = st.tabs(["📊 Dashboard", "🤖 AI Agent"])
 
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        render_kpi("Batch Risk Score", risk["score"])
-    with col2:
-        render_kpi("Risk Level", risk["risk_level"])
-    with col3:
-        render_kpi("Number of Sensor Anomalies", risk["anomaly_count"])
-    with col4:
-        render_kpi("Missing Documentation Count", risk["missing_doc_count"])
+# ── Dashboard tab ──────────────────────────────────────────────────
 
-    st.markdown(
-        f'<div class="status-banner {status_class(risk["risk_level"])}">{risk["risk_level"]}</div>',
-        unsafe_allow_html=True,
+with tab_dashboard:
+    if backend_ready and (analyze or selected_batch):
+        try:
+            result = analyze_batch(uploaded_csv, selected_batch)
+        except requests.RequestException as exc:
+            st.error(f"Backend analysis request failed: {exc}")
+            st.stop()
+
+        batch = result["batch"]
+        deviations = result["deviations"]
+        missing_docs = result["missing_docs"]
+        risk = result["risk"]
+
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            render_kpi("Batch Risk Score", risk["score"])
+        with col2:
+            render_kpi("Risk Level", risk["risk_level"])
+        with col3:
+            render_kpi("Number of Sensor Anomalies", risk["anomaly_count"])
+        with col4:
+            render_kpi("Missing Documentation Count", risk["missing_doc_count"])
+
+        st.markdown(
+            f'<div class="status-banner {status_class(risk["risk_level"])}">{risk["risk_level"]}</div>',
+            unsafe_allow_html=True,
+        )
+
+        chart_a, chart_b = st.columns(2)
+        with chart_a:
+            st.plotly_chart(sensor_chart(batch, "temperature", "Temperature Trend"), use_container_width=True)
+            st.plotly_chart(sensor_chart(batch, "vibration", "Vibration Trend"), use_container_width=True)
+        with chart_b:
+            st.plotly_chart(sensor_chart(batch, "humidity", "Humidity Trend"), use_container_width=True)
+            st.plotly_chart(
+                sensor_chart(batch, "compression_force", "Compression Force Trend"),
+                use_container_width=True,
+            )
+
+        st.subheader("Detected Issues")
+        st.caption("Process deviations")
+        if deviations.empty:
+            st.success("No process-limit deviations detected.")
+        else:
+            st.dataframe(deviations, use_container_width=True, hide_index=True)
+
+        st.caption("Missing documentation")
+        if missing_docs.empty:
+            st.success("No missing documentation detected.")
+        else:
+            st.dataframe(missing_docs, use_container_width=True, hide_index=True)
+
+        st.subheader("Root Cause Summary")
+        st.write(result["summary"])
+
+        st.subheader("QA Review Checklist")
+        for item in result["checklist"]:
+            st.checkbox(item, value=False)
+        st.info("This tool cannot approve or release a batch. Final disposition must be made by authorized QA personnel.")
+
+        markdown_report = result["reports"]["markdown"]
+        csv_report = result["reports"]["csv"]
+
+        dl_a, dl_b = st.columns(2)
+        with dl_a:
+            st.download_button(
+                "Download Markdown Report",
+                markdown_report,
+                file_name=f"{selected_batch}_qa_report.md",
+                mime="text/markdown",
+                use_container_width=True,
+            )
+        with dl_b:
+            st.download_button(
+                "Download CSV Report",
+                csv_report,
+                file_name=f"{selected_batch}_qa_report.csv",
+                mime="text/csv",
+                use_container_width=True,
+            )
+
+        if show_raw:
+            st.subheader("Raw Data")
+            st.dataframe(batch, use_container_width=True, hide_index=True)
+
+        if show_technical:
+            st.subheader("Technical Details")
+            st.write("Backend URL:", API_BASE_URL)
+            st.write("Decision-support notice:", result["decision_support_notice"])
+            st.write("Sensor columns:", SENSOR_COLUMNS)
+            st.json(risk)
+
+# ── AI Agent tab ───────────────────────────────────────────────────
+
+with tab_agent:
+    st.subheader(f"AI Agent Analysis — {selected_batch}")
+    st.caption(
+        "The agent runs all five investigation tools in sequence and streams a QA narrative. "
+        "Use the chat below to ask follow-up questions after the analysis completes."
     )
 
-    chart_a, chart_b = st.columns(2)
-    with chart_a:
-        st.plotly_chart(sensor_chart(batch, "temperature", "Temperature Trend"), use_container_width=True)
-        st.plotly_chart(sensor_chart(batch, "vibration", "Vibration Trend"), use_container_width=True)
-    with chart_b:
-        st.plotly_chart(sensor_chart(batch, "humidity", "Humidity Trend"), use_container_width=True)
-        st.plotly_chart(
-            sensor_chart(batch, "compression_force", "Compression Force Trend"),
-            use_container_width=True,
+    agent: PharmaAnalyzerAgent = st.session_state.agent
+
+    run_analysis = st.button("Run AI Analysis", type="primary", key="run_agent")
+
+    if run_analysis:
+        # Reset state for the new batch
+        st.session_state.agent_synthesis = ""
+        st.session_state.agent_batch_id = selected_batch
+        st.session_state.agent_steps = []
+        st.session_state.chat_history = []
+
+        steps_placeholder = st.empty()
+        synthesis_container = st.container()
+
+        completed_steps: list[str] = []
+
+        def on_tool_step(label: str, result: dict) -> None:  # noqa: E306
+            completed_steps.append(label)
+            st.session_state.agent_steps = list(completed_steps)
+            steps_md = "\n".join(f"- {s}" for s in completed_steps)
+            steps_placeholder.markdown(f"**Analysis in progress…**\n\n{steps_md}")
+
+        try:
+            df = _get_df_for_agent(uploaded_csv)
+            with synthesis_container:
+                synthesis_text = st.write_stream(
+                    agent.analyze_batch(selected_batch, df, on_tool_step=on_tool_step)
+                )
+            st.session_state.agent_synthesis = synthesis_text
+
+            # Replace progress with a compact completion summary
+            steps_md = "\n".join(f"- {s}" for s in completed_steps)
+            steps_placeholder.success(f"**Analysis complete — {len(completed_steps)} steps run**\n\n{steps_md}")
+
+        except Exception as exc:
+            steps_placeholder.error(f"Agent error: {exc}")
+
+    elif st.session_state.agent_synthesis and st.session_state.agent_batch_id == selected_batch:
+        # Show cached synthesis from a previous run in this session
+        steps_md = "\n".join(f"- {s}" for s in st.session_state.agent_steps)
+        if steps_md:
+            st.success(f"**Analysis complete — {len(st.session_state.agent_steps)} steps run**\n\n{steps_md}")
+        st.markdown(st.session_state.agent_synthesis)
+
+    elif st.session_state.agent_batch_id and st.session_state.agent_batch_id != selected_batch:
+        st.info(
+            f"Last analysis was for **{st.session_state.agent_batch_id}**. "
+            "Click **Run AI Analysis** to analyze the currently selected batch."
         )
 
-    st.subheader("Detected Issues")
-    st.caption("Process deviations")
-    if deviations.empty:
-        st.success("No process-limit deviations detected.")
-    else:
-        st.dataframe(deviations, use_container_width=True, hide_index=True)
+    # ── Follow-up chat ──────────────────────────────────────────────
 
-    st.caption("Missing documentation")
-    if missing_docs.empty:
-        st.success("No missing documentation detected.")
-    else:
-        st.dataframe(missing_docs, use_container_width=True, hide_index=True)
+    if st.session_state.agent_synthesis and st.session_state.agent_batch_id == selected_batch:
+        st.divider()
+        st.subheader("Follow-up Questions")
+        st.caption("Ask the agent anything about this batch based on the analysis above.")
 
-    st.subheader("Root Cause Summary")
-    st.write(result["summary"])
+        # Render existing chat history
+        for msg in st.session_state.chat_history:
+            if msg["role"] == "user":
+                st.markdown(
+                    f'<div class="chat-message-user"><strong>You:</strong> {msg["content"]}</div>',
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(
+                    f'<div class="chat-message-assistant"><strong>Agent:</strong> {msg["content"]}</div>',
+                    unsafe_allow_html=True,
+                )
 
-    st.subheader("QA Review Checklist")
-    for item in result["checklist"]:
-        st.checkbox(item, value=False)
-    st.info("This tool cannot approve or release a batch. Final disposition must be made by authorized QA personnel.")
+        # Input row
+        chat_col, send_col = st.columns([5, 1])
+        with chat_col:
+            user_input = st.text_input(
+                "Your question",
+                placeholder="e.g. Which sensor deviations are most critical?",
+                label_visibility="collapsed",
+                key="chat_input",
+            )
+        with send_col:
+            send = st.button("Send", use_container_width=True, key="chat_send")
 
-    markdown_report = result["reports"]["markdown"]
-    csv_report = result["reports"]["csv"]
+        if send and user_input.strip():
+            # Build history for the agent (exclude the context prefix injected per turn)
+            history_for_agent = [
+                {"role": m["role"], "content": m["content"]}
+                for m in st.session_state.chat_history
+            ]
 
-    dl_a, dl_b = st.columns(2)
-    with dl_a:
-        st.download_button(
-            "Download Markdown Report",
-            markdown_report,
-            file_name=f"{selected_batch}_qa_report.md",
-            mime="text/markdown",
-            use_container_width=True,
-        )
-    with dl_b:
-        st.download_button(
-            "Download CSV Report",
-            csv_report,
-            file_name=f"{selected_batch}_qa_report.csv",
-            mime="text/csv",
-            use_container_width=True,
-        )
+            try:
+                df = _get_df_for_agent(uploaded_csv)
+                response_placeholder = st.empty()
+                response_chunks: list[str] = []
 
-    if show_raw:
-        st.subheader("Raw Data")
-        st.dataframe(batch, use_container_width=True, hide_index=True)
+                def _collect_and_stream():
+                    for chunk in agent.chat(
+                        selected_batch,
+                        user_input.strip(),
+                        history_for_agent,
+                        df,
+                    ):
+                        response_chunks.append(chunk)
+                        yield chunk
 
-    if show_technical:
-        st.subheader("Technical Details")
-        st.write("Backend URL:", API_BASE_URL)
-        st.write("Decision-support notice:", result["decision_support_notice"])
-        st.write("Sensor columns:", SENSOR_COLUMNS)
-        st.json(risk)
+                response_text = response_placeholder.write_stream(_collect_and_stream())
+
+                # Persist to history
+                st.session_state.chat_history.append(
+                    {"role": "user", "content": user_input.strip()}
+                )
+                st.session_state.chat_history.append(
+                    {"role": "assistant", "content": response_text}
+                )
+                st.rerun()
+
+            except Exception as exc:
+                st.error(f"Chat error: {exc}")
+
+        if st.session_state.chat_history:
+            if st.button("Clear Chat", key="clear_chat"):
+                st.session_state.chat_history = []
+                st.rerun()
