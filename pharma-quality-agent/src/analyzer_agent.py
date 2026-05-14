@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 import json
+import os
 from typing import Generator
-
-import anthropic
 
 from src.data_generator import SENSOR_COLUMNS
 
 
-MODEL = "claude-opus-4-7"
+MODEL = os.getenv("ANTHROPIC_MODEL", "claude-opus-4-7")
 
 SYSTEM_PROMPT = """You are a Pharma Manufacturing QA Analysis Agent specializing in batch quality risk assessment.
 
@@ -117,6 +116,8 @@ TOOL_LABELS = {
 
 class PharmaAnalyzerAgent:
     def __init__(self) -> None:
+        import anthropic
+
         self.client = anthropic.Anthropic()
         self._analysis_cache: dict[str, dict] = {}
 
@@ -310,17 +311,18 @@ class PharmaAnalyzerAgent:
         conversation_history should contain alternating user/assistant messages
         (without the initial analysis exchange).
         """
-        # Prepend a brief analysis context so Claude answers in context
-        context_prefix = ""
-        if batch_id in self._analysis_cache:
-            risk = self._analysis_cache[batch_id]["risk"]
-            context_prefix = (
-                f"[Batch {batch_id} analysis context — "
-                f"Risk Score: {risk['score']}, Level: {risk['risk_level']}, "
-                f"Anomalies: {risk['anomaly_count']}, "
-                f"Deviations: {risk['deviation_count']}, "
-                f"Missing Docs: {risk['missing_doc_count']}]\n\n"
-            )
+        analysis = self._get_analysis(batch_id, df)
+        risk = analysis["risk"]
+        context_prefix = (
+            f"[Batch {batch_id} analysis context — "
+            f"Risk Score: {risk['score']}, Level: {risk['risk_level']}, "
+            f"Anomalies: {risk['anomaly_count']}, "
+            f"Deviations: {risk['deviation_count']}, "
+            f"Missing Docs: {risk['missing_doc_count']}, "
+            f"Quality Failure: {risk['quality_failure']}. "
+            f"Root Cause Summary: {analysis['root_cause_summary']}. "
+            "Remember: decision-support only; never approve or reject the batch.]\n\n"
+        )
 
         messages = [
             *conversation_history,

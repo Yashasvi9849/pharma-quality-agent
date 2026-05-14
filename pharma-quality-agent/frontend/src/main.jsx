@@ -50,7 +50,9 @@ function App() {
   const [agentRun, setAgentRun] = useState(false);
   const [agentLoading, setAgentLoading] = useState(false);
   const [agentSummary, setAgentSummary] = useState(null);
-  const [agentAnswer, setAgentAnswer] = useState("");
+  const [agentChat, setAgentChat] = useState([]);
+  const [agentQuestion, setAgentQuestion] = useState("");
+  const [chatLoading, setChatLoading] = useState(false);
 
   useEffect(() => {
     refreshBatches();
@@ -89,7 +91,8 @@ function App() {
     setAnalysis(null);
     setAgentRun(false);
     setAgentSummary(null);
-    setAgentAnswer("");
+    setAgentChat([]);
+    setAgentQuestion("");
 
     if (!file) {
       refreshBatches();
@@ -121,7 +124,8 @@ function App() {
     setError("");
     setAgentRun(false);
     setAgentSummary(null);
-    setAgentAnswer("");
+    setAgentChat([]);
+    setAgentQuestion("");
     try {
       let payload;
       if (uploadedFile) {
@@ -152,7 +156,6 @@ function App() {
     if (!selectedBatch) return;
     setAgentLoading(true);
     setAgentRun(true);
-    setAgentAnswer("");
     try {
       let payload;
       if (uploadedFile) {
@@ -168,6 +171,34 @@ function App() {
       setError(`Agent analysis failed: ${err.message}`);
     } finally {
       setAgentLoading(false);
+    }
+  }
+
+  async function sendAgentQuestion(questionText) {
+    const trimmed = questionText.trim();
+    if (!trimmed || !selectedBatch) return;
+
+    setChatLoading(true);
+    setError("");
+    try {
+      const form = new FormData();
+      form.append("batch_id", selectedBatch);
+      form.append("message", trimmed);
+      form.append("history", JSON.stringify(agentChat));
+      if (uploadedFile) {
+        form.append("file", uploadedFile);
+      }
+      const payload = await api("/agent/chat", { method: "POST", body: form });
+      setAgentChat((current) => [
+        ...current,
+        { role: "user", content: trimmed },
+        { role: "assistant", content: payload.answer },
+      ]);
+      setAgentQuestion("");
+    } catch (err) {
+      setError(`Anthropic chatbot failed: ${err.message}`);
+    } finally {
+      setChatLoading(false);
     }
   }
 
@@ -264,8 +295,11 @@ function App() {
             agentLoading={agentLoading}
             agentSummary={agentSummary}
             runAgentAnalysis={runAgentAnalysis}
-            agentAnswer={agentAnswer}
-            setAgentAnswer={setAgentAnswer}
+            agentChat={agentChat}
+            agentQuestion={agentQuestion}
+            setAgentQuestion={setAgentQuestion}
+            chatLoading={chatLoading}
+            sendAgentQuestion={sendAgentQuestion}
           />
         )}
       </main>
@@ -373,19 +407,20 @@ function Dashboard({ analysis, drivers, rawOpen, technicalOpen }) {
   );
 }
 
-function AgentTab({ analysis, drivers, agentRun, agentLoading, agentSummary, runAgentAnalysis, agentAnswer, setAgentAnswer }) {
+function AgentTab({
+  analysis,
+  drivers,
+  agentRun,
+  agentLoading,
+  agentSummary,
+  runAgentAnalysis,
+  agentChat,
+  agentQuestion,
+  setAgentQuestion,
+  chatLoading,
+  sendAgentQuestion,
+}) {
   const steps = agentSummary?.agent_steps || [];
-
-  function ask(question) {
-    const answerMap = {
-      "Which deviation should QA review first?": `QA should start with ${drivers[0] || "the highest risk finding"}, then confirm documentation completeness and quality result status.`,
-      "Which timestamps are most concerning?": "Review the process deviations table for exact timestamps. Prioritize high-severity out-of-limit values and any anomaly-marked readings.",
-      "What documentation must be completed?": analysis.missing_documentation?.length
-        ? `Complete or verify: ${analysis.missing_documentation.map((row) => row.field.replaceAll("_", " ")).join(", ")}.`
-        : "No required documentation fields are currently flagged as missing.",
-    };
-    setAgentAnswer(answerMap[question]);
-  }
 
   return (
     <section className="agent-layout">
@@ -423,12 +458,40 @@ function AgentTab({ analysis, drivers, agentRun, agentLoading, agentSummary, run
       </Panel>
 
       <Panel title="Ask Follow-Up" icon={<Bot size={18} />}>
+        <p className="body-copy">
+          Ask Claude a QA follow-up about this batch. The backend sends the batch risk context,
+          process deviations, and documentation findings to the Anthropic-powered agent.
+        </p>
         <div className="prompt-row">
           {(agentSummary?.recommended_questions || ["Which deviation should QA review first?", "Which timestamps are most concerning?", "What documentation must be completed?"]).map((question) => (
-            <button key={question} className="prompt-chip" onClick={() => ask(question)}>{question}</button>
+            <button key={question} className="prompt-chip" onClick={() => sendAgentQuestion(question)} disabled={chatLoading}>{question}</button>
           ))}
         </div>
-        {agentAnswer && <div className="agent-answer">{agentAnswer}</div>}
+        <div className="chat-thread">
+          {agentChat.map((message, index) => (
+            <div className={`chat-bubble ${message.role}`} key={`${message.role}-${index}`}>
+              <strong>{message.role === "user" ? "You" : "Claude QA Agent"}</strong>
+              <p>{message.content}</p>
+            </div>
+          ))}
+        </div>
+        <form
+          className="chat-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            sendAgentQuestion(agentQuestion);
+          }}
+        >
+          <input
+            value={agentQuestion}
+            onChange={(event) => setAgentQuestion(event.target.value)}
+            placeholder="Ask a QA follow-up, e.g. what should QA review before disposition?"
+          />
+          <button className="primary-button inline" type="submit" disabled={chatLoading || !agentQuestion.trim()}>
+            {chatLoading ? <RotateCw className="spin" size={18} /> : <Bot size={18} />}
+            Send
+          </button>
+        </form>
       </Panel>
     </section>
   );

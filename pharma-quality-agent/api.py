@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 from io import BytesIO
+import json
+import os
 from typing import Annotated
 
 import pandas as pd
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
+from src.analyzer_agent import PharmaAnalyzerAgent
 from src.pipeline import analyze_batch, api_result, load_batch_data, prepare_batch_data
 
 
@@ -31,6 +34,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+_anthropic_agent: PharmaAnalyzerAgent | None = None
 
 
 @app.get("/health")
@@ -87,6 +92,50 @@ async def analyze_uploaded_batch_with_agents(
         data = prepare_batch_data(data)
     analysis = _analysis_or_404(data, batch_id)
     return _agent_result(analysis)
+
+
+@app.post("/agent/chat")
+async def chat_with_anthropic_agent(
+    batch_id: Annotated[str, Form()],
+    message: Annotated[str, Form()],
+    history: Annotated[str, Form()] = "[]",
+    file: Annotated[UploadFile | None, File()] = None,
+) -> dict[str, object]:
+    if not os.getenv("ANTHROPIC_API_KEY"):
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                "ANTHROPIC_API_KEY is not set. Add your Anthropic API key to the backend "
+                "environment and restart the server."
+            ),
+        )
+
+    if file is None:
+        data = load_batch_data()
+    else:
+        contents = await file.read()
+        data = pd.read_csv(BytesIO(contents))
+        data = prepare_batch_data(data)
+
+    _analysis_or_404(data, batch_id)
+    conversation_history = _parse_chat_history(history)
+    agent = _get_anthropic_agent()
+
+    try:
+        answer = "".join(agent.chat(batch_id, message, conversation_history, data)).strip()
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Anthropic chat failed: {exc}") from exc
+
+    return {
+        "batch_id": batch_id,
+        "answer": answer,
+        "provider": "anthropic",
+        "model": os.getenv("ANTHROPIC_MODEL", "claude-opus-4-7"),
+        "decision_support_notice": (
+            "Decision-support only. Human QA approval is required. "
+            "The system must never approve a batch automatically."
+        ),
+    }
 
 
 def _analyze_or_404(data: pd.DataFrame, batch_id: str) -> dict[str, object]:
@@ -177,3 +226,31 @@ def _top_deviation_driver(deviations: list[dict[str, object]]) -> str:
         return ""
     field, count = sorted(counts.items(), key=lambda item: item[1], reverse=True)[0]
     return f"{field.replace('_', ' ')} ({count} reading(s))"
+
+
+def _get_anthropic_agent() -> PharmaAnalyzerAgent:
+    global _anthropic_agent
+    if _anthropic_agent is None:
+        _anthropic_agent = PharmaAnalyzerAgent()
+    return _anthropic_agent
+
+
+def _parse_chat_history(history: str) -> list[dict[str, str]]:
+    try:
+        parsed = json.loads(history)
+    except json.JSONDecodeError as exc:
+        raise HTTPException(status_code=400, detail="history must be valid JSON") from exc
+
+    if not isinstance(parsed, list):
+        raise HTTPException(status_code=400, detail="history must be a JSON list")
+
+    clean_history = []
+    for item in parsed[-12:]:
+        if not isinstance(item, dict):
+            continue
+        role = item.get("role")
+        content = item.get("content")
+        if role not in {"user", "assistant"} or not isinstance(content, str):
+            continue
+        clean_history.append({"role": role, "content": content[:4000]})
+    return clean_history
