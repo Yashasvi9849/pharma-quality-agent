@@ -29,6 +29,20 @@ After all five tools return results, produce a structured QA narrative that cove
 IMPORTANT — DECISION SUPPORT ONLY: This system assists QA reviewers but cannot approve or reject batches.
 Human QA personnel must make all final disposition decisions in accordance with SOPs."""
 
+CHAT_SYSTEM_PROMPT = """You are a Pharma Manufacturing QA follow-up assistant.
+
+You are answering follow-up questions after the deterministic batch investigation has already run.
+The backend provides the verified batch context in the user's message, including risk score,
+risk level, anomaly count, deviation count, missing documentation count, quality result status,
+root-cause summary, process deviations, missing documentation, and QA checklist.
+
+Do not claim that tools are unavailable. Do not ask the user to enable tools. Do not invent new
+measurements. Answer only from the provided context and clearly say when more source records would
+be needed.
+
+Keep answers concise, practical, and QA-focused. Always preserve this rule: decision-support only;
+human QA personnel must make all final disposition decisions in accordance with SOPs."""
+
 TOOLS = [
     {
         "name": "get_batch_data",
@@ -313,15 +327,24 @@ class PharmaAnalyzerAgent:
         """
         analysis = self._get_analysis(batch_id, df)
         risk = analysis["risk"]
+        deviations = analysis["process_deviations"][:12]
+        missing_docs = analysis["missing_documentation"]
+        checklist = analysis["qa_checklist"]
         context_prefix = (
-            f"[Batch {batch_id} analysis context — "
-            f"Risk Score: {risk['score']}, Level: {risk['risk_level']}, "
-            f"Anomalies: {risk['anomaly_count']}, "
-            f"Deviations: {risk['deviation_count']}, "
-            f"Missing Docs: {risk['missing_doc_count']}, "
-            f"Quality Failure: {risk['quality_failure']}. "
-            f"Root Cause Summary: {analysis['root_cause_summary']}. "
-            "Remember: decision-support only; never approve or reject the batch.]\n\n"
+            "Verified backend investigation context:\n"
+            f"- Batch ID: {batch_id}\n"
+            f"- Risk Score: {risk['score']}/100\n"
+            f"- Risk Level: {risk['risk_level']}\n"
+            f"- Sensor Anomalies: {risk['anomaly_count']}\n"
+            f"- Process Deviations: {risk['deviation_count']}\n"
+            f"- Missing Documentation Items: {risk['missing_doc_count']}\n"
+            f"- Quality Failure: {risk['quality_failure']}\n"
+            f"- Root Cause Summary: {analysis['root_cause_summary']}\n"
+            f"- Process Deviation Examples: {json.dumps(deviations, default=str)}\n"
+            f"- Missing Documentation: {json.dumps(missing_docs, default=str)}\n"
+            f"- QA Checklist: {json.dumps(checklist, default=str)}\n"
+            "- Safety Rule: decision-support only; never approve or reject the batch.\n\n"
+            "User follow-up question:\n"
         )
 
         messages = [
@@ -332,7 +355,7 @@ class PharmaAnalyzerAgent:
         with self.client.messages.stream(
             model=MODEL,
             max_tokens=2048,
-            system=SYSTEM_PROMPT,
+            system=CHAT_SYSTEM_PROMPT,
             messages=messages,
         ) as stream:
             yield from stream.text_stream
