@@ -14,6 +14,8 @@ import {
   RotateCw,
   Upload,
 } from "lucide-react";
+import manufacturingBg from "./assets/pharma-manufacturing-bg.png";
+import pillAccent from "./assets/pill-accent.png";
 import "./styles.css";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
@@ -46,6 +48,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [agentRun, setAgentRun] = useState(false);
+  const [agentLoading, setAgentLoading] = useState(false);
+  const [agentSummary, setAgentSummary] = useState(null);
   const [agentAnswer, setAgentAnswer] = useState("");
 
   useEffect(() => {
@@ -84,6 +88,7 @@ function App() {
     setUploadedFile(file);
     setAnalysis(null);
     setAgentRun(false);
+    setAgentSummary(null);
     setAgentAnswer("");
 
     if (!file) {
@@ -115,6 +120,7 @@ function App() {
     setLoading(true);
     setError("");
     setAgentRun(false);
+    setAgentSummary(null);
     setAgentAnswer("");
     try {
       let payload;
@@ -141,6 +147,29 @@ function App() {
 
   const risk = analysis?.risk;
   const drivers = useMemo(() => getPrimaryDrivers(analysis), [analysis]);
+
+  async function runAgentAnalysis() {
+    if (!selectedBatch) return;
+    setAgentLoading(true);
+    setAgentRun(true);
+    setAgentAnswer("");
+    try {
+      let payload;
+      if (uploadedFile) {
+        const form = new FormData();
+        form.append("batch_id", selectedBatch);
+        form.append("file", uploadedFile);
+        payload = await api("/agent/analyze", { method: "POST", body: form });
+      } else {
+        payload = await api(`/agent/analyze/${selectedBatch}`);
+      }
+      setAgentSummary(payload);
+    } catch (err) {
+      setError(`Agent analysis failed: ${err.message}`);
+    } finally {
+      setAgentLoading(false);
+    }
+  }
 
   return (
     <div className="app-shell">
@@ -190,10 +219,11 @@ function App() {
       </aside>
 
       <main className="main-panel">
-        <header className="topbar">
-          <div>
+        <header className="topbar" style={{ backgroundImage: `linear-gradient(90deg, rgba(251,250,247,0.98) 0%, rgba(251,250,247,0.9) 44%, rgba(251,250,247,0.22) 100%), url(${manufacturingBg})` }}>
+          <div className="topbar-copy">
             <p className="eyebrow">Agentic AI Pharma Manufacturing Deviation Intelligence System</p>
             <h2>Pharma Manufacturing Quality Assistant</h2>
+            <p>Batch risk review with sensor intelligence, documentation checks, and human QA controls.</p>
           </div>
           <div className="header-meta">
             <span>{selectedBatch || "No batch selected"}</span>
@@ -231,7 +261,9 @@ function App() {
             analysis={analysis}
             drivers={drivers}
             agentRun={agentRun}
-            setAgentRun={setAgentRun}
+            agentLoading={agentLoading}
+            agentSummary={agentSummary}
+            runAgentAnalysis={runAgentAnalysis}
             agentAnswer={agentAnswer}
             setAgentAnswer={setAgentAnswer}
           />
@@ -248,10 +280,16 @@ function Dashboard({ analysis, drivers, rawOpen, technicalOpen }) {
     <>
       <section className="risk-summary">
         <div className="score-panel">
-          <p className="eyebrow">Batch Risk Score</p>
-          <div className="score-row">
-            <span>{risk.score}</span>
+          <div className="score-heading">
+            <div>
+              <p className="eyebrow">Batch Risk Score</p>
+              <h3>Risk position</h3>
+            </div>
             <RiskBadge level={risk.risk_level} />
+          </div>
+          <div className="score-value-row">
+            <span className="score-number">{risk.score}</span>
+            <span className="score-unit">/100</span>
           </div>
           <RiskBar score={risk.score} />
         </div>
@@ -266,6 +304,7 @@ function Dashboard({ analysis, drivers, rawOpen, technicalOpen }) {
           <h3>{risk.risk_level}</h3>
         </div>
         <p>This tool supports review only. It cannot approve, reject, release, or disposition a batch.</p>
+        <img className="pill-accent" src={pillAccent} alt="" />
       </section>
 
       <section className="content-grid two">
@@ -334,20 +373,16 @@ function Dashboard({ analysis, drivers, rawOpen, technicalOpen }) {
   );
 }
 
-function AgentTab({ analysis, drivers, agentRun, setAgentRun, agentAnswer, setAgentAnswer }) {
-  const steps = [
-    "Retrieved batch data",
-    "Detected sensor anomalies",
-    "Checked process deviations",
-    "Checked documentation gaps",
-    "Calculated risk score",
-  ];
+function AgentTab({ analysis, drivers, agentRun, agentLoading, agentSummary, runAgentAnalysis, agentAnswer, setAgentAnswer }) {
+  const steps = agentSummary?.agent_steps || [];
 
   function ask(question) {
     const answerMap = {
-      "What should QA review first?": `QA should start with ${drivers[0] || "the highest risk finding"}, then confirm documentation completeness and quality result status.`,
-      "Which timestamps are most concerning?": "Review the process deviations table for the exact timestamps. The most concerning records are the highest-severity out-of-limit values.",
-      "Why is this high risk?": analysis.root_cause_summary,
+      "Which deviation should QA review first?": `QA should start with ${drivers[0] || "the highest risk finding"}, then confirm documentation completeness and quality result status.`,
+      "Which timestamps are most concerning?": "Review the process deviations table for exact timestamps. Prioritize high-severity out-of-limit values and any anomaly-marked readings.",
+      "What documentation must be completed?": analysis.missing_documentation?.length
+        ? `Complete or verify: ${analysis.missing_documentation.map((row) => row.field.replaceAll("_", " ")).join(", ")}.`
+        : "No required documentation fields are currently flagged as missing.",
     };
     setAgentAnswer(answerMap[question]);
   }
@@ -356,20 +391,22 @@ function AgentTab({ analysis, drivers, agentRun, setAgentRun, agentAnswer, setAg
     <section className="agent-layout">
       <Panel title={`Investigation Timeline — ${analysis.batch_id}`} icon={<Bot size={18} />}>
         <p className="body-copy">
-          This view presents the deterministic investigation as an agent-style review flow.
-          It is still decision-support only.
+          The backend exposes the agent-style investigation flow as a sequence of specialized review agents.
+          Each agent reads the same validated pipeline output and prepares QA-facing findings.
         </p>
-        <button className="primary-button inline" onClick={() => setAgentRun(true)}>
-          <Bot size={18} /> Run AI Analysis
+        <button className="primary-button inline" onClick={runAgentAnalysis} disabled={agentLoading}>
+          {agentLoading ? <RotateCw className="spin" size={18} /> : <Bot size={18} />}
+          Run Agent Analysis
         </button>
         {agentRun && (
           <div className="timeline">
-            {steps.map((step, index) => (
-              <div className="timeline-step" key={step}>
+            {agentLoading && <p className="body-copy">Running agent workflow...</p>}
+            {!agentLoading && steps.map((step, index) => (
+              <div className="timeline-step" key={step.agent}>
                 <CheckCircle2 size={18} />
                 <div>
-                  <strong>{step}</strong>
-                  <p>Step {index + 1} completed using backend analysis output.</p>
+                  <strong>{index + 1}. {step.agent}</strong>
+                  <p>{step.finding}</p>
                 </div>
               </div>
             ))}
@@ -379,7 +416,7 @@ function AgentTab({ analysis, drivers, agentRun, setAgentRun, agentAnswer, setAg
 
       <Panel title="Agent Finding" icon={<FileSearch size={18} />}>
         <RiskBadge level={analysis.risk.risk_level} />
-        <p className="body-copy">{analysis.root_cause_summary}</p>
+        <p className="body-copy">{agentSummary?.agent_summary || analysis.root_cause_summary}</p>
         <ul className="driver-list compact">
           {drivers.map((driver) => <li key={driver}>{driver}</li>)}
         </ul>
@@ -387,7 +424,7 @@ function AgentTab({ analysis, drivers, agentRun, setAgentRun, agentAnswer, setAg
 
       <Panel title="Ask Follow-Up" icon={<Bot size={18} />}>
         <div className="prompt-row">
-          {["Why is this high risk?", "What should QA review first?", "Which timestamps are most concerning?"].map((question) => (
+          {(agentSummary?.recommended_questions || ["Which deviation should QA review first?", "Which timestamps are most concerning?", "What documentation must be completed?"]).map((question) => (
             <button key={question} className="prompt-chip" onClick={() => ask(question)}>{question}</button>
           ))}
         </div>
